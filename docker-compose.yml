@@ -1,0 +1,8 @@
+services:
+  deposit-system:
+    build: .
+    container_name: deposit-system
+    volumes:
+      - ./deposit.db:/app/deposit.db
+    stdin_open: true
+    tty: true
