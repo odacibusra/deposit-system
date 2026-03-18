@@ -120,8 +120,7 @@ async function handleHistory(machineTag: string) {
 
 async function main() {
   console.log('\n Deposit System\n');
-
-  //const machineTag = await getMachineTag();
+  
   const machineTag = uuidv4();
   console.log(`\n Running as machine: ${machineTag}\n`);
 
