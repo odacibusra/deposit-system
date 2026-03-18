@@ -9,7 +9,7 @@
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["jest", "node"],
+    "types": ["vitest/globals", "node"],
     "isolatedModules": true,
     "skipLibCheck": true
   }

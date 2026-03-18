@@ -38,6 +38,6 @@ export function getAndClearDeposits(machineTag: string): DepositItem[] {
 
 export function getHistory(machineTag: string): Log[] {
   return db.prepare(`
-    SELECT * FROM logs WHERE machineTag = ? ORDER BY createdAt DESC
+    SELECT * FROM logs WHERE machineTag = ? ORDER BY createdAt ASC
   `).all(machineTag) as Log[];
 }
