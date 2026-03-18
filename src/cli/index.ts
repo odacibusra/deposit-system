@@ -95,7 +95,6 @@ async function handleRefund(machineTag: string) {
     }
 
     printReceipt({
-        machineName: machineTag,
         items,
         date: new Date().toLocaleString('nb-NO'),
     });

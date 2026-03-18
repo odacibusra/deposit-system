@@ -1,7 +1,6 @@
 import { DepositItem, DEPOSIT_VALUES, ItemType } from '../models/item.js';
 
 interface ReceiptData {
-  machineName: string;
   items: DepositItem[];
   date: string;
 }
@@ -30,7 +29,7 @@ function buildSummary(items: DepositItem[]): Record<ItemType, ItemSummary> {
   return summary;
 }
 
-export function printReceipt({ machineName, items, date }: ReceiptData): void {
+export function printReceipt({ items, date }: ReceiptData): void {
   const summary = buildSummary(items);
   const grandTotal = items.reduce((sum, i) => sum + i.depositValue, 0);
   const width = 38;

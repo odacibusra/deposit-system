@@ -23,13 +23,13 @@ describe('printReceipt', () => {
   it('prints without throwing', () => {
     const items = buildItems(machineTag, 'bottle', 2);
     expect(() =>
-      printReceipt({ machineName: machineTag, items, date: '17.03.2026 14:00:00' })
+      printReceipt({ items, date: '17.03.2026 14:00:00' })
     ).not.toThrow();
   });
 
   it('includes total refund in output', () => {
     const items = buildItems(machineTag, 'bottle', 2); // 2 x 3 kr = 6 kr
-    printReceipt({ machineName: machineTag, items, date: '17.03.2026 14:00:00' });
+    printReceipt({  items, date: '17.03.2026 14:00:00' });
 
     const output = consoleSpy.mock.calls.flat().join('\n');
     expect(output).toContain('6');
@@ -39,7 +39,7 @@ describe('printReceipt', () => {
     const bottles = buildItems(machineTag, 'bottle', 2);
     const cans = buildItems(machineTag, 'can', 3);
     expect(() =>
-      printReceipt({ machineName: machineTag, items: [...bottles, ...cans], date: '17.03.2026 14:00:00' })
+      printReceipt({ items: [...bottles, ...cans], date: '17.03.2026 14:00:00' })
     ).not.toThrow();
   });
 });
