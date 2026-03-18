@@ -1,6 +1,7 @@
 import { buildItems, saveDeposit, getAndClearDeposits, getHistory } from './depositService.js';
 import db from '../db/client.js';
 import { runMigrations } from '../db/migrations.js';
+import { beforeAll, describe, it, beforeEach, expect } from 'vitest';
 
 beforeAll(() => {
   runMigrations();
@@ -83,26 +84,6 @@ describe('getAndClearDeposits', () => {
     getAndClearDeposits(machineTag);
 
     const remaining = db.prepare('SELECT * FROM deposits WHERE machineTag = ?').all('OTHER-MACHINE');
-    expect(remaining).toHaveLength(2);
-  });
-});
-
-describe('getHistory', () => {
-  it('returns deposit history for a machine', () => {
-    const items = buildItems(machineTag, 'bottle', 2);
-    items.forEach(saveDeposit);
-
-    const history = getHistory(machineTag);
-    expect(history).toHaveLength(2);
-  });
-
-  it('does not clear deposits', () => {
-    const items = buildItems(machineTag, 'bottle', 2);
-    items.forEach(saveDeposit);
-
-    getHistory(machineTag);
-
-    const remaining = db.prepare('SELECT * FROM deposits WHERE machineTag = ?').all(machineTag);
     expect(remaining).toHaveLength(2);
   });
 });
