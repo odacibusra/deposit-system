@@ -1,11 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import db from '../db/client.js';
-import {
-    DEPOSIT_VALUES,
-    DepositItem,
-    ItemType,
-    Log
-} from '../models/item.js';
+import { DEPOSIT_VALUES, DepositItem, ItemType, Log } from '../models/item.js';
 
 export function buildItems(machineTag: string, type: ItemType, count: number): DepositItem[] {
   return Array.from({ length: count }, () => ({
@@ -18,17 +13,23 @@ export function buildItems(machineTag: string, type: ItemType, count: number): D
 }
 
 export function saveDeposit(item: DepositItem): void {
-  db.prepare(`
+  db.prepare(
+    `
     INSERT INTO deposits (id, type, depositValue, machineTag, createdAt)
     VALUES (?, ?, ?, ?, ?)
-  `).run(item.id, item.type, item.depositValue, item.machineTag, item.createdAt);
+  `
+  ).run(item.id, item.type, item.depositValue, item.machineTag, item.createdAt);
 }
 
 export function getAndClearDeposits(machineTag: string): DepositItem[] {
   const getAndDelete = db.transaction(() => {
-    const items = db.prepare(`
+    const items = db
+      .prepare(
+        `
       SELECT * FROM deposits WHERE machineTag = ? ORDER BY createdAt DESC
-    `).all(machineTag) as DepositItem[];
+    `
+      )
+      .all(machineTag) as DepositItem[];
     db.prepare(`DELETE FROM deposits WHERE machineTag = ?`).run(machineTag);
     return items;
   });
@@ -37,7 +38,11 @@ export function getAndClearDeposits(machineTag: string): DepositItem[] {
 }
 
 export function getHistory(machineTag: string): Log[] {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     SELECT * FROM logs WHERE machineTag = ? ORDER BY createdAt ASC
-  `).all(machineTag) as Log[];
+  `
+    )
+    .all(machineTag) as Log[];
 }

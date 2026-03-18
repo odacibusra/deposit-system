@@ -36,7 +36,7 @@ describe('buildItems', () => {
 
   it('generates unique ids', () => {
     const items = buildItems(machineTag, 'can', 3);
-    const ids = items.map(i => i.id);
+    const ids = items.map((i) => i.id);
     expect(new Set(ids).size).toBe(3);
   });
 });
@@ -83,7 +83,9 @@ describe('getAndClearDeposits', () => {
 
     getAndClearDeposits(machineTag);
 
-    const remaining = db.prepare('SELECT * FROM deposits WHERE machineTag = ?').all('OTHER-MACHINE');
+    const remaining = db
+      .prepare('SELECT * FROM deposits WHERE machineTag = ?')
+      .all('OTHER-MACHINE');
     expect(remaining).toHaveLength(2);
   });
 });

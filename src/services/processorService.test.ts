@@ -37,7 +37,10 @@ describe('processItems', () => {
       calls.push([index, total]);
     });
 
-    expect(calls).toEqual([[1, 2], [2, 2]]);
+    expect(calls).toEqual([
+      [1, 2],
+      [2, 2],
+    ]);
   }, 10000);
 
   it('returns empty array and zero total for no items', async () => {

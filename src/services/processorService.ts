@@ -18,7 +18,7 @@ export async function processItems(
     const delayMs = (1 / ratePerSecond) * 1000;
 
     //delay to simulate processing time
-    await new Promise(res => setTimeout(res, delayMs));
+    await new Promise((res) => setTimeout(res, delayMs));
 
     processed.push(item);
     onItemProcessed(item, i + 1, items.length);

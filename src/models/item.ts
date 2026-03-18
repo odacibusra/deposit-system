@@ -13,14 +13,14 @@ export type LogEvent =
   | 'ITEM_ACCEPTED'
   | 'DEPOSIT_COMPLETED'
   | 'REFUND_ISSUED'
-  | 'REFUND_CANCELLED'
+  | 'REFUND_CANCELLED';
 
 export interface Log {
-    id: string;
-    machineTag: string;
-    event: LogEvent;
-    details: string | null;
-    createdAt: string;
+  id: string;
+  machineTag: string;
+  event: LogEvent;
+  details: string | null;
+  createdAt: string;
 }
 
 export const ITEM_LABELS: Record<ItemType, string> = {
@@ -30,10 +30,10 @@ export const ITEM_LABELS: Record<ItemType, string> = {
 
 export const DEPOSIT_VALUES: Record<ItemType, number> = {
   bottle: 300, // 3 kr
-  can:  200, // 2 kr
+  can: 200, // 2 kr
 };
 
 export const PROCESSING_RATES: Record<ItemType, number> = {
   bottle: 1, // 1 items/s
-  can: 0.5,  // 0.5 items/s
+  can: 0.5, // 0.5 items/s
 };

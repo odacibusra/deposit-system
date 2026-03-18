@@ -1,5 +1,5 @@
-import db from "../db/client.js";
-import { LogEvent } from "../models/item.js";
+import db from '../db/client.js';
+import { LogEvent } from '../models/item.js';
 
 export function log(machineTag: string, event: LogEvent, details?: string) {
   const logEntry = {
@@ -10,14 +10,20 @@ export function log(machineTag: string, event: LogEvent, details?: string) {
     createdAt: new Date().toISOString(),
   };
 
-  db.prepare(`
+  db.prepare(
+    `
     INSERT INTO logs (id, machineTag, event, details, createdAt)
     VALUES (?, ?, ?, ?, ?)
-  `).run(logEntry.id, logEntry.machineTag, logEntry.event, logEntry.details, logEntry.createdAt);
-} 
+  `
+  ).run(logEntry.id, logEntry.machineTag, logEntry.event, logEntry.details, logEntry.createdAt);
+}
 
 export function getLogs(machineTag: string) {
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     SELECT * FROM logs WHERE machineTag = ? ORDER BY createdAt DESC
-  `).all(machineTag);
+  `
+    )
+    .all(machineTag);
 }
